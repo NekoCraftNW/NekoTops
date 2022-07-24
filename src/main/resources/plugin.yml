@@ -1,0 +1,6 @@
+name: NekoTops
+version: '${project.version}'
+main: me.gatogamer.nekotops.NekoTops
+authors: [ gatogamer ]
+description: A simple top parser implementing the Crimewave and Midnight API.
+website: https://gatogamer.gay
