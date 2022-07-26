@@ -1,0 +1,5 @@
+##############################
+# NekoTops by gatogamer#6666 #
+##############################
+
+endpoint: "https://api.nekocraft.us/top/%gamemode%/%kind%/%page%"
