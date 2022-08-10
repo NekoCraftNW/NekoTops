@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import me.gatogamer.midnight.commons.io.FileIO;
 import me.gatogamer.midnight.spigot.utils.NyaLocation;
 import me.gatogamer.nekotops.NekoTops;
+import me.gatogamer.nekotops.hologram.TopHologram;
 import me.gatogamer.nekotops.top.HologramTopData;
 import me.gatogamer.nekotops.top.TopFetcher;
 import org.bukkit.ChatColor;
@@ -46,7 +47,8 @@ public class CreateTopCommand implements CommandExecutor {
         File file = new File(nekoTops.getDataFolder(), "tops/"+name+".json");
         FileIO.writeFile(file, new GsonBuilder().setPrettyPrinting().create().toJson(topFetcher));
 
-        nekoTops.getTopManager().getTops().put(topFetcher.getName(), topFetcher);
+        nekoTops.getTopManager().getTops().put(name, topFetcher);
+        nekoTops.getHologramManager().getTops().put(name, new TopHologram(name, topFetcher));
         return true;
     }
 }

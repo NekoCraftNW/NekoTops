@@ -10,6 +10,7 @@ import me.gatogamer.nekotops.NekoTops;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * This code has been created by
@@ -38,17 +39,20 @@ public class TopFetcher {
                         .replace("%gamemode%", hologramTopData.getGamemode())
                         .replace("%kind%", hologramTopData.getTopKind())
                         .replace("%page%", String.valueOf(page))
-        ).ask(nekoTops.getMidnightImpl().getListeningExecutorService()).addCallback(jsonElementResponse ->
-                jsonElementResponse.getResponse().ifPresent(jsonElement -> {
-                    JsonObject baseObject = jsonElement.getAsJsonObject();
-                    JsonObject dataObject = baseObject.get("data").getAsJsonObject();
-                    JsonArray topsObject = dataObject.get("tops").getAsJsonArray();
-                    List<TopData> topDatas = new ArrayList<>();
-                    topsObject.forEach(topObject ->
-                            topDatas.add(nekoTops.getMidnightImpl().getGson().fromJson(topObject, TopData.class))
-                    );
-                    callback.call(topDatas);
-                })
-        );
+        ).ask(nekoTops.getMidnightImpl().getListeningExecutorService()).addCallback(jsonElementResponse -> {
+            AtomicInteger position = new AtomicInteger();
+            jsonElementResponse.getResponse().ifPresent(jsonElement -> {
+                JsonObject baseObject = jsonElement.getAsJsonObject();
+                JsonObject dataObject = baseObject.get("data").getAsJsonObject();
+                JsonArray topsObject = dataObject.get("tops").getAsJsonArray();
+                List<TopData> topDatas = new ArrayList<>();
+                topsObject.forEach(topObject -> {
+                    TopData topData = nekoTops.getMidnightImpl().getGson().fromJson(topObject, TopData.class);
+                    topDatas.add(topData);
+                    topData.setPosition((page + 1) * position.incrementAndGet());
+                });
+                callback.call(topDatas);
+            });
+        });
     }
 }

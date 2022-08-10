@@ -15,4 +15,5 @@ public class TopData {
     private final String uuid;
     private final String kind;
     private final int value;
+    private int position;
 }

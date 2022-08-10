@@ -3,3 +3,13 @@
 ##############################
 
 endpoint: "https://api.nekocraft.us/top/%gamemode%/%kind%/%page%"
+
+style:
+  default-style:
+    lines:
+      - "&b%gamemode% &8- &b%kind%"
+      - ""
+      - "%top%"
+      - ""
+      - "&cno sé, esto es todo xd"
+    style: "&a&l#%number% &a%name% &8- &b%value% %type%"
