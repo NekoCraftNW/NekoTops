@@ -1,8 +1,8 @@
 package me.gatogamer.nekotops.command;
 
-import com.google.gson.GsonBuilder;
 import lombok.RequiredArgsConstructor;
 import me.gatogamer.midnight.commons.io.FileIO;
+import me.gatogamer.midnight.libs.gson.GsonBuilder;
 import me.gatogamer.midnight.spigot.utils.NyaLocation;
 import me.gatogamer.nekotops.NekoTops;
 import me.gatogamer.nekotops.hologram.TopHologram;

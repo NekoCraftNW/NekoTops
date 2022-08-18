@@ -1,7 +1,7 @@
 package me.gatogamer.nekotops;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
 import lombok.Getter;
+import me.gatogamer.midnight.libs.google.common.util.concurrent.ListeningExecutorService;
 import me.gatogamer.midnight.libs.gson.Gson;
 
 import javax.inject.Inject;
