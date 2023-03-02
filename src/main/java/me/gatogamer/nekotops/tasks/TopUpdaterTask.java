@@ -2,7 +2,6 @@ package me.gatogamer.nekotops.tasks;
 
 import lombok.RequiredArgsConstructor;
 import me.gatogamer.nekotops.NekoTops;
-import me.gatogamer.nekotops.hologram.HologramManager;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -18,6 +17,8 @@ public class TopUpdaterTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        nekoTops.getHologramManager().getTops().forEach((s, topHologram) -> topHologram.update(nekoTops));
+        nekoTops.getHologramManager().getTops().forEach((s, topHologram) ->
+                topHologram.update(nekoTops)
+        );
     }
 }

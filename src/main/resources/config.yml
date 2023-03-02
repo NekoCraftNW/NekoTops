@@ -2,14 +2,32 @@
 # NekoTops by gatogamer#6666 #
 ##############################
 
-endpoint: "https://api.nekocraft.us/top/%gamemode%/%kind%/%page%"
+# Time can be: allTime, day, week, month
+endpoint: "https://api.nekocraft.us/top/%gamemode%/%kind%/%time%/%page%"
 
 style:
   default-style:
     lines:
-      - "&b%gamemode% &8- &b%kind%"
+      - "&b%gamemode% &8- &b%kind% &8- &a%time%"
       - ""
       - "%top%"
-      - ""
-      - "&cno sé, esto es todo xd"
+      - "%day% %week% %month% %allTime%"
     style: "&a&l#%number% &a%name% &8- &b%value% %type%"
+    time-style:
+      day:
+        active: "&aDiario"
+        inactive: "&7Diario"
+      week:
+        active: "&aSemanal"
+        inactive: "&7Semanal"
+      month:
+        active: "&aMensual"
+        inactive: "&7Mensual"
+      allTime:
+        active: "&aSiempre"
+        inactive: "&7Siempre"
+    page-style:
+      pre: "&fPáginas: "
+      selected: "&a"
+      not-selected: "&7"
+      separator: "&f, "

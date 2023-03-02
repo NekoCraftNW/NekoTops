@@ -2,6 +2,7 @@ package me.gatogamer.nekotops.top;
 
 import lombok.Getter;
 import me.gatogamer.midnight.commons.io.FileIO;
+import me.gatogamer.midnight.spigot.Midnight;
 import me.gatogamer.nekotops.NekoTops;
 
 import java.io.File;
@@ -24,7 +25,7 @@ public class TopManager {
         File topFolder = new File(nekoTops.getDataFolder(), "tops");
         topFolder.mkdir();
         for (File file : topFolder.listFiles()) {
-            TopFetcher topFetcher = nekoTops.getMidnightImpl().getGson().fromJson(FileIO.readFile(file), TopFetcher.class);
+            TopFetcher topFetcher = Midnight.getInstance().getGson().fromJson(FileIO.readFile(file), TopFetcher.class);
             tops.put(topFetcher.getName(), topFetcher);
         }
     }

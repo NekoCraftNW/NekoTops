@@ -35,6 +35,7 @@ public class CreateTopCommand implements CommandExecutor {
         Player player = (Player) sender;
         if (args.length != 3) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cUso: /createtop <name> <gamemode> <topKind>"));
+            return true;
         }
         String name = args[0];
         String gamemode = args[1];
