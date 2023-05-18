@@ -19,6 +19,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Getter
 public class TopManager {
     private final Map<String, TopFetcher> tops = new ConcurrentHashMap<>();
+    private final Map<String, String> prefixes = new ConcurrentHashMap<>();
 
     public TopManager(NekoTops nekoTops) {
         nekoTops.getDataFolder().mkdir();

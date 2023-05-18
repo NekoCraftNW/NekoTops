@@ -6,6 +6,7 @@ import me.gatogamer.midnight.spigot.utils.MessagesUtils;
 import me.gatogamer.nekotops.NekoTops;
 import me.gatogamer.nekotops.top.TopData;
 import me.gatogamer.nekotops.top.TopFetcher;
+import me.gatogamer.nekotops.utils.TimeUtils;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.model.user.User;
@@ -13,6 +14,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nullable;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -128,14 +130,16 @@ public class TopHologram {
     }
 
     public void loadPage(NekoTops nekoTops, TopType time, int page, @Nullable List<TopData> topDatas) {
-        Map<String, String> prefixes = new ConcurrentHashMap<>();
         LuckPerms luckPerms = LuckPermsProvider.get();
+        Map<String, String> prefixes = nekoTops.getTopManager().getPrefixes();
         if (topDatas != null) {
             topDatas.forEach(topData -> {
-                User user = luckPerms.getUserManager().loadUser(UUID.fromString(topData.getUuid())).join();
-                try {
-                    prefixes.put(topData.getName(), user.getCachedData().getMetaData().getPrefix());
-                } catch (Exception ignored) {
+                if (!prefixes.containsKey(topData.getName())) {
+                    User user = luckPerms.getUserManager().loadUser(UUID.fromString(topData.getUuid())).join();
+                    try {
+                        prefixes.put(topData.getName(), user.getCachedData().getMetaData().getPrefix());
+                    } catch (Exception ignored) {
+                    }
                 }
             });
         }
@@ -154,6 +158,7 @@ public class TopHologram {
                             .replaceAll("%uuid%", topData.getUuid())
                             .replaceAll("%prefix%", prefixes.getOrDefault(topData.getName(), ""))
                             .replaceAll("%value%", String.valueOf(topData.getValue()))
+                            .replaceAll("%value_as_time%", TimeUtils.formatTime(Duration.ofSeconds(topData.getValue())))
                             .replaceAll("%type%", topData.getKind())
                     );
                 }

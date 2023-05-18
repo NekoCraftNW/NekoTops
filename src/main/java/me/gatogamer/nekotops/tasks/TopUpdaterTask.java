@@ -17,6 +17,7 @@ public class TopUpdaterTask extends BukkitRunnable {
 
     @Override
     public void run() {
+        nekoTops.getTopManager().getPrefixes().clear();
         nekoTops.getHologramManager().getTops().forEach((s, topHologram) ->
                 topHologram.update(nekoTops)
         );
