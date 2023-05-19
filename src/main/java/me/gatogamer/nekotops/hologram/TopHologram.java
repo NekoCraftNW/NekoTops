@@ -172,11 +172,9 @@ public class TopHologram {
         try {
             concurrencyLock.lock();
             Map<Integer, List<String>> topsPosition = tops.computeIfAbsent(time, i -> new ConcurrentHashMap<>());
-            if (onlyOne && !topsPosition.isEmpty()) {
-                concurrencyLock.unlock();
-                return;
+            if (!onlyOne || topsPosition.isEmpty()) {
+                topsPosition.put((onlyOne) ? 0 : page, pageLines);
             }
-            topsPosition.put((onlyOne) ? 0 : page, pageLines);
             concurrencyLock.unlock();
         } catch (Exception e) {
             e.printStackTrace();

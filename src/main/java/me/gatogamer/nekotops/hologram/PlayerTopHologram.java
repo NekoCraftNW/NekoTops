@@ -84,14 +84,19 @@ public class PlayerTopHologram {
 
     public void doRender() {
         Map<Integer, List<String>> pages = topHologram.getTops().get(topType);
-        List<String> lines;
+        List<String> lines = new ArrayList<>();
         String pagesText;
         try {
-            lines = new ArrayList<>(pages.getOrDefault(page, pages.get(0)));
+            lines.addAll(pages.getOrDefault(page, pages.get(0)));
             pagesText = getPagesText(pages.size(), page);
         } catch (Exception e) {
-            lines = new ArrayList<>(topHologram.getLines());
-            pagesText = getPagesText(0, page);
+            topHologram.getLines().forEach(s -> {
+                if (s.equals("%pages%")) {
+                    return;
+                }
+                lines.add(s);
+            });
+            pagesText = "";
         }
         String finalPagesText = pagesText;
         lines.replaceAll(s ->
